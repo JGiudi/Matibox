@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Domina el algoritmo en 7 días — Scrollytelling</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260409g" />
+  </head>
+  <body>
+    <div class="custom-cursor" id="customCursor" aria-hidden="true" hidden></div>
+    <div class="scroll-spacer" aria-hidden="true"></div>
+
+    <section class="scrolly-stage" id="scrolly">
+      <h1 class="visually-hidden">Domina el algoritmo en 7 días</h1>
+
+      <div class="fixed-bg" id="fixedBg">
+        <img
+          src="Images/FondoInicio.png"
+          alt=""
+          class="fixed-bg__img"
+          width="1920"
+          height="1080"
+          decoding="async"
+        />
+      </div>
+
+      <!-- z-index 1: detrás del video — blanco, más grande (referencia) -->
+      <div class="layer layer--text-back" id="textLayerBack" aria-hidden="true">
+        <span class="headline__line headline__line--back" data-split-top>Domina el algoritmo</span>
+      </div>
+
+      <div class="layer layer--video" id="videoLayer">
+        <div class="video-shell" id="videoShell">
+          <video
+            class="video-shell__media"
+            id="heroVideo"
+            src="Images/Video.mp4"
+            playsinline
+            muted
+            loop
+            preload="metadata"
+            disablePictureInPicture
+          ></video>
+        </div>
+      </div>
+
+      <!-- z-index 3: delante del video — amarillo -->
+      <div class="layer layer--text-front" id="textLayerFront" aria-hidden="true">
+        <span class="headline__line headline__line--main" data-split-algoritmo>en 7 días</span>
+      </div>
+
+      <div class="layer layer--debris" id="debrisLayer" aria-hidden="true"></div>
+    </section>
+
+    <!-- Fuera de #scrolly: siempre encima y clicable (no compite con capas del hero) -->
+    <div class="post-fullscreen-ui" id="postUi" hidden>
+      <button type="button" class="post-fullscreen-ui__close" id="closeVideoBtn" aria-label="Cerrar video">
+        <span class="post-fullscreen-ui__x">×</span>
+      </button>
+    </div>
+
+    <!-- WhatsApp fijo (no desaparece; opcional: se oculta mientras reproduce el video) -->
+    <a
+      class="wa-fab"
+      id="waFab"
+      href="https://wa.me/5490000000000"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Contactar por WhatsApp"
+      title="WhatsApp"
+    >
+      <svg class="wa-fab__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          fill="#ffffff"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.414-.074-.124-.272-.198-.57-.347Z"
+        />
+        <path
+          fill="#ffffff"
+          d="M12.004 0C5.372 0 0 5.371 0 11.997c0 2.131.553 4.132 1.523 5.88L0 24l6.335-1.66c1.723.94 3.714 1.48 5.83 1.48h.005c6.624 0 12.003-5.371 12.003-11.997C24.173 5.371 18.628.001 12.004.001zm0 21.799h-.004a9.87 9.87 0 01-5.07-1.39l-.363-.215-3.784.992 1.01-3.693-.238-.375a9.83 9.83 0 01-1.51-5.23c0-5.43 4.42-9.85 9.855-9.85 2.63 0 5.1 1.025 6.96 2.885a9.77 9.77 0 012.886 6.96c-.003 5.43-4.425 9.846-9.853 9.846z"
+        />
+      </svg>
+    </a>
+
+    <!-- Beneficios: scroll horizontal + pin (GSAP en beneficios.js) -->
+    <section class="beneficios" id="beneficios" aria-labelledby="beneficios-heading">
+      <h2 id="beneficios-heading" class="visually-hidden">Beneficios del curso</h2>
+      <div class="beneficios__viewport">
+        <div class="beneficios__video-layer" aria-hidden="true">
+          <video
+            class="beneficios__bg-video"
+            id="beneficiosWalkVideo"
+            src="Images/VideoSeccion3_scrub.mp4"
+            muted
+            playsinline
+            preload="auto"
+            disablePictureInPicture
+          ></video>
+        </div>
+        <div class="beneficios__scrim" aria-hidden="true"></div>
+        <div class="beneficios__mask">
+          <div class="beneficios__track" id="beneficiosTrack">
+            <article class="beneficios__panel">
+              <p class="beneficios__text">
+                Al finalizar el curso habrás aprendido la mejor habilidad del mundo para tu negocio…
+              </p>
+              <p class="beneficios__hint">Seguí caminando →</p>
+            </article>
+            <article class="beneficios__panel">
+              <p class="beneficios__text">
+                Crear contenido orgánico es la mejor manera de hacerte visible a vos y a tu negocio ante miles o millones de personas.
+              </p>
+              <p class="beneficios__hint">Seguí caminando →</p>
+            </article>
+            <article class="beneficios__panel">
+              <p class="beneficios__text">
+                Lo mejor de todo: crear contenido es gratis. No vas a necesitar ningún anuncio ni nadie que te promocione.
+              </p>
+              <p class="beneficios__hint">Seguí caminando →</p>
+            </article>
+            <article class="beneficios__panel">
+              <p class="beneficios__text">
+                Vas a aprender a salir en el “Para ti”, así como yo aparecí a vos por primera vez.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="oferta" id="oferta" aria-labelledby="oferta-heading">
+      <div class="oferta__bg" aria-hidden="true">
+        <div class="oferta__vignette"></div>
+        <div class="oferta__particles">
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+          <span class="oferta__particle"></span>
+        </div>
+      </div>
+      <div class="oferta__spotlight" aria-hidden="true"></div>
+      <div class="oferta__inner">
+        <h2 id="oferta-heading" class="visually-hidden">Oferta limitada</h2>
+        <article class="oferta__card">
+          <div class="oferta__clip oferta__clip--left" aria-hidden="true">
+            <svg class="oferta__clip-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M16 4L6 9v7c0 5.5 4.3 10.2 10 11 5.7-.8 10-5.5 10-11V9l-10-5zm0 4.2l6 3v5.3c0 3.8-2.9 7-6.5 7.5h-.9c-3.6-.5-6.5-3.7-6.5-7.5V11.2l6.9-3z"
+              />
+              <path
+                fill="currentColor"
+                d="M16 12c-1.8 0-3.2 1.5-3 3.4.2 1.5 1.5 2.6 3 2.6s2.8-1.1 3-2.6c.2-1.9-1.2-3.4-3-3.4z"
+              />
+            </svg>
+          </div>
+          <div class="oferta__clip oferta__clip--right" aria-hidden="true">
+            <svg class="oferta__clip-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M16 6C10.5 6 6 10.5 6 16s4.5 10 10 10 10-4.5 10-10S21.5 6 16 6zm0 3a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2.5a1.8 1.8 0 0 1 1.8 1.8c0 1-1.8 4.2-1.8 4.2s-1.8-3.2-1.8-4.2A1.8 1.8 0 0 1 16 11.5z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <p class="oferta__eyebrow">Solo por hoy</p>
+          <p class="oferta__discount">40% off</p>
+          <div class="oferta__was">
+            <p class="oferta__was-line"><span class="oferta__strike">was $100 USD</span></p>
+            <p class="oferta__was-line"><span class="oferta__strike">was $100.000 ARS</span></p>
+          </div>
+          <p class="oferta__now oferta__now--gold">$59 USD</p>
+          <p class="oferta__now oferta__now--white">$59.000 ARS</p>
+          <a
+            class="oferta__cta"
+            href="https://wa.me/5490000000000"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="oferta__cta-text">Toque aquí para contactarme</span>
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="resultados" id="resultados" aria-labelledby="resultados-heading">
+      <div class="resultados__inner">
+        <div class="resultados__copy">
+          <p class="resultados__eyebrow">Resultados propios</p>
+          <h2 id="resultados-heading" class="resultados__headline">
+            <span class="resultados__line" data-result-line>Método</span>
+            <span class="resultados__line resultados__line--accent" data-result-line>testeado</span>
+            <span class="resultados__line" data-result-line>por mí mismo</span>
+          </h2>
+          <p class="resultados__sub">
+            Capturas reales de mis cuentas en TikTok, Instagram y YouTube.
+          </p>
+        </div>
+        <div class="resultados__collage">
+          <figure class="resultados__fig resultados__fig--1" data-result-fig>
+            <img src="Images/Prueba1.png" alt="Captura de métricas o perfil en red social" width="640" height="800" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="resultados__fig resultados__fig--2" data-result-fig>
+            <img src="Images/Prueba2.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="resultados__fig resultados__fig--3" data-result-fig>
+            <img src="Images/Prueba3.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="resultados__fig resultados__fig--4" data-result-fig>
+            <img src="Images/Prueba4.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="resultados__fig resultados__fig--5" data-result-fig>
+            <img src="Images/Prueba5.png" alt="" width="640" height="800" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="faq__inner">
+        <p class="faq__eyebrow">¿Tenes dudas?</p>
+        <h2 id="faq-title" class="faq__title">Preguntas frecuentes</h2>
+        <p class="faq__lead">
+          Respuestas cortas a lo que más me preguntan. Cualquier consulta, lo vemos por WhatsApp.
+        </p>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Qué puedo llegar a lograr en 7 días?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                La idea es que en una semana tengas claros los cimientos para que el algoritmo empiece a
+                mostrar tu contenido a gente nueva: enfoque de contenido, formato y una rutina que puedas
+                sostener. Los resultados dependen de tu constancia y tu nicho, pero el mapa es ese.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Necesito experiencia previa en redes o en edición?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                No hace falta ser editor profesional. Si sabés usar el celular y tenés ganas de practicar,
+                alcanza. Lo técnico se explica paso a paso; lo que no se puede evitar es publicar y probar.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Sirve para mi nicho o para donde vivo?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                El enfoque es entender cómo piensa la recomendación en TikTok, Instagram y YouTube, no un
+                solo tipo de cuenta. Si vendés servicios, productos o marca personal, se puede adaptar; lo
+                central es la estrategia de contenido, no el país.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Es en vivo o lo veo a mi ritmo?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                El formato está pensado para que avances cuando puedas: podés organizar las prácticas en
+                bloques cortos. Si en algún momento hay encuentros en vivo, quedan grabados para quien no
+                pueda estar.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Cómo accedo al material cuando pago?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                Te paso el acceso por el mismo canal de contacto (por ejemplo WhatsApp o el medio que
+                definamos al cerrar la compra), con los enlaces o indicaciones para entrar al contenido.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Cómo son los pagos en USD y en pesos?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                Los valores publicados son referencia; el tipo de cambio y los medios disponibles los
+                coordinamos al escribirme. Siempre confirmá el monto final antes de pagar.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Hay garantía o reembolso?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                Depende del producto y la modalidad que acordemos por chat. Te lo dejo por escrito antes de
+                que pagues para que quede claro para las dos partes.
+              </p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__summary">
+              <span class="faq__summary-text">¿Y si el algoritmo cambia mañana?</span>
+            </summary>
+            <div class="faq__body">
+              <span class="faq__body-line" aria-hidden="true"></span>
+              <p>
+                Las plataformas cambian todo el tiempo; por eso el curso apunta a principios que se
+                reutilizan: intención de búsqueda, retención, formato y consistencia. Eso no deja de
+                aplicar aunque cambien detalles del “Para ti”.
+              </p>
+            </div>
+          </details>
+        </div>
+        <a
+          class="faq__cta"
+          href="https://wa.me/5490000000000"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Escribirme por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <div
+      class="resultados-lightbox"
+      id="resultadosLightbox"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-label="Captura ampliada"
+    >
+      <button type="button" class="resultados-lightbox__scrim" aria-label="Cerrar vista ampliada"></button>
+      <img class="resultados-lightbox__img" alt="" decoding="async" />
+      <button type="button" class="resultados-lightbox__close" aria-label="Cerrar">
+        <span class="resultados-lightbox__x" aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+    <script src="cursor-invert.js" defer></script>
+    <script src="main.js?v=20260409i" defer></script>
+    <script src="beneficios.js?v=20260409i" defer></script>
+    <script src="oferta.js?v=20260409i" defer></script>
+    <script src="resultados.js?v=20260409i" defer></script>
+    <script src="faq.js" defer></script>
+  </body>
+</html>

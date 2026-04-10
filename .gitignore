@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Logs y entornos
+*.log
+.env
+.env.*
+
+# Si en el futuro agregás Node
+node_modules/
+
+# Backups locales de assets (opcional: descomentá si no querés subirlos)
+# *_backup*.mp4
