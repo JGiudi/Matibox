@@ -65,6 +65,7 @@
     const postUi = document.getElementById("postUi");
     const closeBtn = document.getElementById("closeVideoBtn");
     const waFab = document.getElementById("waFab");
+    const heroCta = document.querySelector(".hero-cta");
 
     var SplitTypeCtor = window.SplitType;
     if (!stage || !videoShell || !heroVideo || !SplitTypeCtor) {
@@ -72,21 +73,38 @@
       return;
     }
 
-    const topEl = document.querySelector("[data-split-top]");
+    const topEl = document.querySelector("[data-hero-back]");
+    const line1 = document.querySelector("[data-split-line1]");
+    const line2 = document.querySelector("[data-split-line2]");
     const mainEl = document.querySelector("[data-split-algoritmo]");
-    new SplitTypeCtor(topEl, { types: "chars" });
+    if (!topEl || !line1 || !line2 || !mainEl) {
+      console.error("Falta DOM hero (data-hero-back / líneas).");
+      return;
+    }
+    new SplitTypeCtor(line1, { types: "chars" });
+    new SplitTypeCtor(line2, { types: "chars" });
     new SplitTypeCtor(mainEl, { types: "chars" });
 
-    const charsSmall = Array.from(topEl.querySelectorAll(".char"));
+    const charsSmall = Array.from(line1.querySelectorAll(".char")).concat(
+      Array.from(line2.querySelectorAll(".char"))
+    );
     const charsMain = Array.from(mainEl.querySelectorAll(".char"));
 
-    let propsSmall = buildExplosionProps(charsSmall.length, 0.4, 11);
-    let propsMain = buildExplosionProps(charsMain.length, 1, 9043);
+    var isMobile = window.innerWidth <= 768;
+    var magSmall = isMobile ? 0.2 : 0.4;
+    var magMain = isMobile ? 0.4 : 1;
+
+    let propsSmall = buildExplosionProps(charsSmall.length, magSmall, 11);
+    let propsMain = buildExplosionProps(charsMain.length, magMain, 9043);
     var coverScale = computeCoverScale(videoShell);
 
     function refreshTargets() {
-      propsSmall = buildExplosionProps(charsSmall.length, 0.4, 11);
-      propsMain = buildExplosionProps(charsMain.length, 1, 9043);
+      isMobile = window.innerWidth <= 768;
+      magSmall = isMobile ? 0.2 : 0.4;
+      magMain = isMobile ? 0.4 : 1;
+      
+      propsSmall = buildExplosionProps(charsSmall.length, magSmall, 11);
+      propsMain = buildExplosionProps(charsMain.length, magMain, 9043);
       coverScale = computeCoverScale(videoShell);
     }
 
@@ -109,6 +127,9 @@
       filter: "blur(0px)",
       opacity: 1,
     });
+    if (heroCta) {
+      gsap.set(heroCta, { opacity: 1, y: 0 });
+    }
 
     /* true = el usuario cerró la cruz; no volver a mostrarla hasta que baje el progreso del scroll */
     var uiDismissed = false;
@@ -128,6 +149,23 @@
         onUpdate: function (self) {
           const p = self.progress;
           var playAt = 0.52;
+
+          if (heroCta) {
+            // Evita que el CTA quede “colgado”: lo atamos al fade real de las letras.
+            // (Más robusto que comparar tiempos/progreso cuando cambia la duración total.)
+            let off = false;
+            try {
+              if (charsMain && charsMain.length) {
+                off = gsap.getProperty(charsMain[0], "opacity") < 0.2;
+              }
+            } catch (e0) {}
+            if (!off) {
+              const offAt = 0.46 / Math.max(0.001, master.duration());
+              off = p >= offAt;
+            }
+            heroCta.style.opacity = off ? "0" : "";
+            heroCta.style.pointerEvents = off ? "none" : "";
+          }
 
           if (p >= playAt) {
             if (heroVideo.paused) heroVideo.play().catch(function () {});
@@ -241,6 +279,16 @@
       },
       0.46
     );
+    if (heroCta) {
+      master.to(
+        heroCta,
+        {
+          opacity: 0,
+          duration: 0.18,
+        },
+        0.46
+      );
+    }
 
     /* Tramo donde el video ya está “a pantalla completa” y queda fijo un rato */
     master.to({}, { duration: holdFullScreen }, 0.62);

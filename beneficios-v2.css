@@ -1,0 +1,55 @@
+/* Overrides SOLO para V2 (index-v2.html) — beneficios: texto grande */
+.beneficios__text {
+  font-size: clamp(2rem, 5vw, 4rem);
+  max-width: min(36ch, 100%);
+}
+
+@media (max-width: 768px) {
+  .beneficios__panel {
+    padding-left: max(1.35rem, env(safe-area-inset-left), 4.5vw);
+    padding-right: max(1.35rem, env(safe-area-inset-right), 4.5vw);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .beneficios__text {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* Un poco más chico = menos líneas; interlineado legible sin estirar toda la sección */
+    font-size: clamp(0.88rem, 3.35vw, 1.62rem);
+    line-height: 1.24;
+    letter-spacing: 0.01em;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-wrap: balance;
+    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.18);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.14),
+      1px 1px 0 rgba(0, 0, 0, 0.18),
+      2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 4px 12px rgba(0, 0, 0, 0.18);
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  /* Aire claro entre el párrafo y “Seguí caminando” */
+  .beneficios__hint {
+    margin-top: clamp(2rem, 5.25vh, 3.1rem);
+    line-height: 1.45;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (max-width: 480px) {
+  .beneficios__text {
+    font-size: clamp(0.82rem, 3.15vw, 1.45rem);
+    line-height: 1.23;
+  }
+
+  .beneficios__hint {
+    margin-top: clamp(1.75rem, 4.5vh, 2.65rem);
+  }
+}

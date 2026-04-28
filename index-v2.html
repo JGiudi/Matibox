@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Domina el algoritmo en 7 días — Scrollytelling</title>
+    <title>Domina el algoritmo en 7 días — Scrollytelling (V2)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css?v=20260420l" />
+    <link rel="stylesheet" href="hero-v2.css?v=20260420h" />
+    <link rel="stylesheet" href="beneficios-v2.css?v=20260420g" />
   </head>
   <body>
     <div class="custom-cursor" id="customCursor" aria-hidden="true" hidden></div>
@@ -30,7 +32,6 @@
         />
       </div>
 
-      <!-- z-index 1: detrás del video — blanco, más grande (referencia) -->
       <div class="layer layer--text-back" id="textLayerBack" aria-hidden="true">
         <span class="headline__line headline__line--back" data-hero-back>
           <span class="headline__row" data-split-line1>Domina el </span><span class="headline__row" data-split-line2>algoritmo</span>
@@ -52,7 +53,6 @@
         </div>
       </div>
 
-      <!-- z-index 3: delante del video — amarillo -->
       <div class="layer layer--text-front" id="textLayerFront" aria-hidden="true">
         <span class="headline__line headline__line--main" data-split-algoritmo>en 7 días</span>
         <a
@@ -68,14 +68,12 @@
       <div class="layer layer--debris" id="debrisLayer" aria-hidden="true"></div>
     </section>
 
-    <!-- Fuera de #scrolly: siempre encima y clicable (no compite con capas del hero) -->
     <div class="post-fullscreen-ui" id="postUi" hidden>
       <button type="button" class="post-fullscreen-ui__close" id="closeVideoBtn" aria-label="Cerrar video">
         <span class="post-fullscreen-ui__x">×</span>
       </button>
     </div>
 
-    <!-- WhatsApp fijo (no desaparece; opcional: se oculta mientras reproduce el video) -->
     <a
       class="wa-fab"
       id="waFab"
@@ -97,7 +95,7 @@
       </svg>
     </a>
 
-    <!-- Beneficios: scroll horizontal + pin (GSAP en beneficios.js) -->
+    <!-- Beneficios / Oferta / Resultados / FAQ / Lightbox: copiado 1:1 del index.html -->
     <section class="beneficios" id="beneficios" aria-labelledby="beneficios-heading">
       <h2 id="beneficios-heading" class="visually-hidden">Beneficios del curso</h2>
       <div class="beneficios__viewport">
@@ -379,10 +377,11 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
     <script src="cursor-invert.js" defer></script>
-    <script src="main.js?v=20260420d" defer></script>
+    <script src="main-v2.js?v=20260420d" defer></script>
     <script src="beneficios.js?v=20260420g" defer></script>
     <script src="oferta.js?v=20260409i" defer></script>
     <script src="resultados.js?v=20260409i" defer></script>
     <script src="faq.js" defer></script>
   </body>
 </html>
+

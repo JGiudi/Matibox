@@ -1,0 +1,44 @@
+/* Hero V2: capas de motion encima del fondo (sin tocar contenido) */
+.fixed-bg__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1; /* encima de la imagen */
+}
+
+.fixed-bg__canvas--noise {
+  mix-blend-mode: overlay;
+  opacity: 0;
+}
+
+.fixed-bg__canvas--particles {
+  opacity: 1;
+}
+
+/* Asegurar que el hero no recorte el título en V2 */
+.scrolly-stage {
+  overflow: visible;
+}
+
+/* Canvas debajo del título */
+.fixed-bg__canvas {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.layer--text-back,
+.layer--text-front {
+  z-index: 2;
+}
+
+@media (max-width: 639px) {
+  .layer--text-back {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    box-sizing: border-box;
+  }
+}
+

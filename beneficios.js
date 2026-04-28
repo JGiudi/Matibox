@@ -41,6 +41,13 @@
       return Math.max(0, track.scrollWidth - viewportWidth());
     }
 
+    /* Móvil: más recorrido vertical para la misma animación (más tiempo de lectura) */
+    function scrollEndBonus() {
+      if (typeof window.matchMedia !== "function") return 0;
+      if (!window.matchMedia("(max-width: 768px)").matches) return 0;
+      return Math.round(viewportWidth() * 0.28);
+    }
+
     var videoTargetTime = 0;
     var chaseRaf = null;
     var pinIsActive = false;
@@ -162,25 +169,38 @@
       );
     }
 
+    var scrubEase =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(pointer: coarse)").matches
+        ? 0.32
+        : 0.48;
+
     ensureLayout(function () {
       var tl = gsap.timeline({
         scrollTrigger: {
           trigger: root,
           start: "top top",
           end: function () {
-            return "+=" + scrollDistance();
+            return "+=" + (scrollDistance() + scrollEndBonus());
           },
           pin: true,
-          scrub: 0.48,
+          scrub: scrubEase,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onToggle: function (self) {
             pinIsActive = self.isActive;
             if (pinIsActive) {
+              // Force seek to start if we are just entering from the top
+              if (self.direction > 0 && walkVideo && walkVideo.currentTime > 0.5) {
+                 walkVideo.currentTime = 0;
+              }
               startChaseLoop();
             } else {
               stopChaseLoop();
             }
+          },
+          onEnter: function() {
+            if (walkVideo) walkVideo.currentTime = 0;
           },
           onUpdate: function (self) {
             if (!walkVideo || walkVideo.readyState < 1) {
